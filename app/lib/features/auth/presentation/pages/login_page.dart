@@ -1,8 +1,8 @@
-import 'package:app/features/patient/auth/presentation/components/forgot_password.dart';
-import 'package:app/features/patient/auth/presentation/components/my_button.dart';
-import 'package:app/features/patient/auth/presentation/components/my_text_feild.dart';
-import 'package:app/features/patient/auth/presentation/components/swith_button.dart';
-import 'package:app/features/patient/auth/presentation/cubits/auth_cubits.dart';
+import 'package:app/features/auth/presentation/components/forgot_password.dart';
+import 'package:app/features/auth/presentation/components/my_button.dart';
+import 'package:app/features/auth/presentation/components/my_text_feild.dart';
+import 'package:app/features/auth/presentation/components/swith_button.dart';
+import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

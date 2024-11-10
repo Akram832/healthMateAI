@@ -1,5 +1,5 @@
-import 'package:app/features/patient/auth/presentation/components/my_button.dart';
-import 'package:app/features/patient/auth/presentation/components/my_text_feild.dart';
+import 'package:app/features/auth/presentation/components/my_button.dart';
+import 'package:app/features/auth/presentation/components/my_text_feild.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {

@@ -1,5 +1,5 @@
-import 'package:app/features/patient/auth/presentation/pages/login_page.dart';
-import 'package:app/features/patient/auth/presentation/pages/register.dart';
+import 'package:app/features/auth/presentation/pages/login_page.dart';
+import 'package:app/features/auth/presentation/pages/register.dart';
 import 'package:flutter/material.dart';
 
 class AuthPage extends StatefulWidget {

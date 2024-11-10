@@ -1,4 +1,4 @@
-import 'package:app/features/patient/auth/domain/entities/app_patient.dart';
+import 'package:app/features/auth/domain/entities/app_patient.dart';
 
 abstract class AuthStates {}
 
