@@ -29,7 +29,6 @@ class _SwitchButtonState extends State<SwitchButton> {
         Text(
           widget.text,
           style: TextStyle(
-            fontSize: 12,
             fontWeight: FontWeight.w300,
             color: Theme.of(context).colorScheme.primary,
           ),

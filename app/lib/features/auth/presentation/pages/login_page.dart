@@ -40,102 +40,107 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [
-            Color.fromARGB(255, 3, 124, 148), // Light blue color for the top
-            Color.fromARGB(255, 7, 199, 148), // Ending color (green)
-          ],
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              // Light blue color for the top
+              Color.fromARGB(255, 2, 105, 149),
+              Color.fromARGB(255, 25, 40, 56), // Ending color (green)
+            ],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
         ),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: SingleChildScrollView(
-          child: Center(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 40), // Space from the top
-                  // Logo
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: Image.asset(
-                      "lib/features/auth/presentation/asset/images/login.png",
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SingleChildScrollView(
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const SizedBox(height: 40), // Space from the top
+                    // Logo
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50),
+                      child: Image.asset(
+                        "lib/features/auth/presentation/asset/images/login.png",
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 15),
+                    const SizedBox(height: 15),
 
-                  // Message
-                  Text(
-                    "Welcome Back, you've been missed!",
-                    style: TextStyle(
-                        fontSize: 16,
-                        color: Theme.of(context).colorScheme.primary),
-                  ),
-                  const SizedBox(height: 15),
+                    // Message
+                    Text(
+                      "Welcome Back, you've been missed!",
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                    const SizedBox(height: 15),
 
-                  // Email text field
-                  MyTextField(
-                    controller: emailController,
-                    hintText: "email",
-                    obscureText: false,
-                    icon: Icons.email_outlined,
-                  ),
-                  const SizedBox(height: 30),
+                    // Email text field
+                    MyTextField(
+                      controller: emailController,
+                      hintText: "email",
+                      obscureText: false,
+                      icon: Icons.email_outlined,
+                    ),
+                    const SizedBox(height: 30),
 
-                  // Password text field
-                  MyTextField(
-                    controller: passwordController,
-                    hintText: "password",
-                    obscureText: true,
-                    icon: Icons.lock_outline_sharp,
-                  ),
-                  const SizedBox(height: 25),
+                    // Password text field
+                    MyTextField(
+                      controller: passwordController,
+                      hintText: "password",
+                      obscureText: true,
+                      icon: Icons.lock_outline_sharp,
+                    ),
+                    const SizedBox(height: 25),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SwitchButton(text: "Remember me"),
-                      Spacer(),
-                      ForgotPassword(onTap: resetPassword),
-                    ],
-                  ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SwitchButton(text: "Remember me"),
+                        Spacer(),
+                        ForgotPassword(onTap: resetPassword),
+                      ],
+                    ),
 
-                  const SizedBox(height: 20),
+                    const SizedBox(height: 40),
 
-                  MyButton(
-                    text: 'SUBMIT',
-                    onTap: login,
-                  ),
+                    MyButton(
+                      text: 'SUBMIT',
+                      onTap: login,
+                    ),
 
-                  const SizedBox(height: 30),
-
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        'Don\'t have an account? ',
-                        style: TextStyle(
-                            color: Theme.of(context).colorScheme.primary),
-                      ),
-                      GestureDetector(
-                        onTap: widget.togglePages,
-                        child: Text(
-                          'Register now',
+                    const SizedBox(height: 30),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Don\'t have an account? ',
                           style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary,
-                              fontWeight: FontWeight.bold),
+                              color: Theme.of(context).colorScheme.primary),
                         ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 30), // Space from the bottom
-                ],
+                        GestureDetector(
+                          onTap: widget.togglePages,
+                          child: Text(
+                            'Register now',
+                            style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 30),
+
+                    // Space from the bottom
+                  ],
+                ),
               ),
             ),
           ),
