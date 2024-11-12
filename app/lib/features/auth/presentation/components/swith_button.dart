@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SwitchButton extends StatefulWidget {
@@ -16,22 +17,11 @@ class _SwitchButtonState extends State<SwitchButton> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
-        Switch(
-          activeColor:
-              Theme.of(context).colorScheme.primary, // Thumb color when active
-          activeTrackColor: Theme.of(context)
-              .colorScheme
-              .secondary, // Track color when active
-          inactiveThumbColor: Theme.of(context)
-              .colorScheme
-              .secondary, // Thumb color when inactive
-          inactiveTrackColor: Theme.of(context)
-              .colorScheme
-              .primary, // Track color when inactive
+        CupertinoSwitch(
           value: isSwitchOn,
           onChanged: (value) {
             setState(() {
-              isSwitchOn = value;
+              isSwitchOn = !isSwitchOn;
             });
           },
         ),
@@ -39,7 +29,8 @@ class _SwitchButtonState extends State<SwitchButton> {
         Text(
           widget.text,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 12,
+            fontWeight: FontWeight.w300,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),

@@ -5,12 +5,13 @@ class MyTextField extends StatelessWidget {
   final String hintText;
   final bool obscureText;
   final IconData? icon;
-  const MyTextField(
-      {super.key,
-      required this.controller,
-      required this.hintText,
-      required this.obscureText,
-      required this.icon});
+  const MyTextField({
+    super.key,
+    required this.controller,
+    required this.hintText,
+    required this.obscureText,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -21,12 +22,16 @@ class MyTextField extends StatelessWidget {
         obscureText: obscureText,
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(12),
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.primary)),
+            borderRadius: BorderRadius.circular(12),
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
+          ),
           focusedBorder: OutlineInputBorder(
-              borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.primary)),
+            borderRadius:
+                BorderRadius.circular(12), // Ensure radius is set here
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
+          ),
           hintText: hintText,
           hintStyle:
               TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
@@ -34,7 +39,7 @@ class MyTextField extends StatelessWidget {
           filled: true,
           prefixIcon: icon != null
               ? Icon(icon, color: Theme.of(context).colorScheme.inversePrimary)
-              : null, // Set the icon if provided
+              : null,
         ),
       ),
     );

@@ -65,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
                     child: Image.asset(
-                      "lib/features/patient/auth/presentation/asset/images/login.png",
+                      "lib/features/auth/presentation/asset/images/login.png",
                     ),
                   ),
                   const SizedBox(height: 15),
@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                         color: Theme.of(context).colorScheme.primary),
                   ),
                   const SizedBox(height: 15),
-                  
+
                   // Email text field
                   MyTextField(
                     controller: emailController,
@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                     icon: Icons.email_outlined,
                   ),
                   const SizedBox(height: 30),
-                  
+
                   // Password text field
                   MyTextField(
                     controller: passwordController,
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                     icon: Icons.lock_outline_sharp,
                   ),
                   const SizedBox(height: 25),
-                  
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -105,18 +105,18 @@ class _LoginPageState extends State<LoginPage> {
                       ForgotPassword(onTap: resetPassword),
                     ],
                   ),
-                  
+
                   const SizedBox(height: 20),
-                  
+
                   MyButton(
                     text: 'SUBMIT',
                     onTap: login,
                   ),
-                  
+
                   const SizedBox(height: 30),
-                  
+
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'Don\'t have an account? ',
