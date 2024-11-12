@@ -1,4 +1,5 @@
 import 'package:app/features/auth/presentation/pages/auth_page.dart';
+import 'package:app/features/auth/presentation/pages/register.dart';
 import 'package:app/theme/light_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: lightMode,
       title: 'HealthMate',
-      home: AuthPage(),
+      home: RegisterPage(),
     );
   }
 }
