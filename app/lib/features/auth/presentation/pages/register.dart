@@ -26,7 +26,7 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             // Logo
             Image.asset(
-              "lib/features/patient/auth/presentation/asset/images/logo.png",
+              "lib/features/auth/presentation/asset/images/logo.png",
             ),
             const SizedBox(
               height: 25,
