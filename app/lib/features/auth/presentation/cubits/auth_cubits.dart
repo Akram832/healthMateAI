@@ -5,31 +5,31 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthCubits extends Cubit<AuthStates> {
   final AuthRepo authRepo;
-  AppPatient? _currentPatient;
+  AppUser? _currentUser;
 
   AuthCubits({required this.authRepo}) : super(AuthIntial());
 
   // check if patient is already authenticated
   void checkAuth() async {
-    final AppPatient? patient = await authRepo.getCurrentPatient();
-    if (patient != null) {
-      _currentPatient = patient;
-      emit(Authenticated(patient));
+    final AppUser? user = await authRepo.getCurrentUser();
+    if (user != null) {
+      _currentUser = user;
+      emit(Authenticated(user));
     } else {
       emit(UnAuthenticated());
     }
   }
 
   // get current patient
-  AppPatient? get currentPatient => _currentPatient;
+  AppUser? get currentUser => _currentUser;
   // login with email
   Future<void> login(String email, String pw) async {
     try {
       emit(AuthLoading());
-      final patient = await authRepo.loginWithEmailPassowrd(email, pw);
-      if (patient != null) {
-        _currentPatient = patient;
-        emit(Authenticated(patient));
+      final user = await authRepo.loginWithEmailPassowrd(email, pw);
+      if (user != null) {
+        _currentUser = user;
+        emit(Authenticated(user));
       } else {
         emit(UnAuthenticated());
       }
@@ -45,11 +45,11 @@ class AuthCubits extends Cubit<AuthStates> {
       String firstName, int phoneNumber, DateTime dateOfBirth) async {
     try {
       emit(AuthLoading());
-      final patient = await authRepo.registerWithEmailPassowrd(
+      final user = await authRepo.registerWithEmailPassowrd(
           email, pw, lastName, firstName, phoneNumber, dateOfBirth);
-      if (patient != null) {
-        _currentPatient = patient;
-        emit(Authenticated(patient));
+      if (user != null) {
+        _currentUser = user;
+        emit(Authenticated(user));
       } else {
         emit(UnAuthenticated());
       }

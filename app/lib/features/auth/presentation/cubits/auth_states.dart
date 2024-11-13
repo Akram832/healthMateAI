@@ -6,9 +6,8 @@ class AuthIntial extends AuthStates {}
 
 class AuthLoading extends AuthStates {}
 
-
 class Authenticated extends AuthStates {
-  final AppPatient patient;
+  final AppUser patient;
   Authenticated(this.patient);
 }
 

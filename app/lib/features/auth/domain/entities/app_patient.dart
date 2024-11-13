@@ -1,19 +1,19 @@
 import 'package:intl/intl.dart';
 
-class AppPatient {
+class AppUser {
   final int uId;
   final String email;
   final String firstName;
   final String lastName;
-  final int phoneNumber;
+  final String gender;
   final DateTime dateOfBirth; // Date-only field for date of birth
 
-  AppPatient({
+  AppUser({
     required this.uId,
     required this.email,
     required this.firstName,
     required this.lastName,
-    required this.phoneNumber,
+    required this.gender,
     required this.dateOfBirth,
   });
 
@@ -24,18 +24,19 @@ class AppPatient {
       'email': email,
       'firstName': firstName,
       'lastName': lastName,
-      'phoneNumber': phoneNumber,
+      'gender': gender,
+
       'dateOfBirth': DateFormat('yyyy-MM-dd').format(dateOfBirth), // Date-only format
     };
   }
 
-  factory AppPatient.fromJson(Map<String, dynamic> jsonUser) {
-    return AppPatient(
+  factory AppUser.fromJson(Map<String, dynamic> jsonUser) {
+    return AppUser(
       uId: jsonUser['uId'],
       email: jsonUser['email'],
       firstName: jsonUser['firstName'],
       lastName: jsonUser['lastName'],
-      phoneNumber: jsonUser['phoneNumber'],
+      gender: jsonUser['gender'],
       dateOfBirth: DateTime.parse(jsonUser['dateOfBirth']), // Parse date-only string
     );
   }
