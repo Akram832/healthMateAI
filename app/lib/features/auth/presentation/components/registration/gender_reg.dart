@@ -1,5 +1,4 @@
 import 'package:app/features/auth/presentation/components/my_drop_button.dart';
-import 'package:app/features/auth/presentation/components/my_text_feild.dart';
 import 'package:flutter/material.dart';
 
 class GenderReg extends StatelessWidget {
@@ -25,14 +24,14 @@ class GenderReg extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: Image.asset(
-              "lib/features/auth/presentation/asset/images/login.png",
+              "lib/features/auth/presentation/asset/images/gender.png",
             ),
           ),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              "Create Your Profile",
+              "Gender",
               style: TextStyle(
                   fontSize: 36,
                   color: Theme.of(context).colorScheme.primary,
@@ -40,7 +39,7 @@ class GenderReg extends StatelessWidget {
             ),
           ),
           Text(
-            "Kindly provide your first and last name to proceed. ",
+            "Select your gender ",
             style: TextStyle(
                 fontSize: 15, color: Theme.of(context).colorScheme.primary),
           ),

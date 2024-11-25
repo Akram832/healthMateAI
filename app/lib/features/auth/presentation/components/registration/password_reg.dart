@@ -32,14 +32,14 @@ class _PasswordRegState extends State<PasswordReg> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: Image.asset(
-              "lib/features/auth/presentation/asset/images/login.png",
+              "lib/features/auth/presentation/asset/images/password.png",
             ),
           ),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              "Create Your Profile",
+              "Secure Your Account",
               style: TextStyle(
                   fontSize: 36,
                   color: Theme.of(context).colorScheme.primary,
@@ -47,7 +47,7 @@ class _PasswordRegState extends State<PasswordReg> {
             ),
           ),
           Text(
-            "Kindly provide your first and last name to proceed. ",
+            "Enter your password to proceed ",
             style: TextStyle(
                 fontSize: 15, color: Theme.of(context).colorScheme.primary),
           ),

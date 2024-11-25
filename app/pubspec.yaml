@@ -67,6 +67,12 @@ flutter:
 
   assets:
     - lib/features/auth/presentation/asset/images/login.png
+    - lib/features/auth/presentation/asset/images/age.png
+    - lib/features/auth/presentation/asset/images/gender.png
+    - lib/features/auth/presentation/asset/images/name.png
+    - lib/features/auth/presentation/asset/images/password.png
+    - lib/features/auth/presentation/asset/images/new_password.png
+    - lib/features/auth/presentation/asset/images/registration.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

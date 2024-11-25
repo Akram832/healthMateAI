@@ -1,5 +1,4 @@
-import 'package:app/features/auth/presentation/components/my_button.dart';
-import 'package:app/features/auth/presentation/components/my_text_feild.dart';
+
 import 'package:app/features/auth/presentation/components/registration/age_reg.dart';
 import 'package:app/features/auth/presentation/components/registration/email_reg.dart';
 import 'package:app/features/auth/presentation/components/registration/gender_reg.dart';

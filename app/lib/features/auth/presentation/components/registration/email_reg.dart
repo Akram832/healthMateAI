@@ -30,14 +30,14 @@ class _EmailPageState extends State<EmailPage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: Image.asset(
-              "lib/features/auth/presentation/asset/images/login.png",
+              "lib/features/auth/presentation/asset/images/registration.png",
             ),
           ),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              "Create Your Profile",
+              "Registration",
               style: TextStyle(
                   fontSize: 36,
                   color: Theme.of(context).colorScheme.primary,
@@ -45,7 +45,7 @@ class _EmailPageState extends State<EmailPage> {
             ),
           ),
           Text(
-            "Kindly provide your first and last name to proceed. ",
+            "Entre your email address to continue ",
             style: TextStyle(
                 fontSize: 15, color: Theme.of(context).colorScheme.primary),
           ),

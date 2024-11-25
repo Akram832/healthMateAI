@@ -65,3 +65,11 @@ class AuthCubits extends Cubit<AuthStates> {
     emit(UnAuthenticated());
   }
 }
+
+class SwitchBloc extends Bloc<SwitchEvent, SwitchState> {
+  SwitchBloc() : super(SwitchState(false)) {
+    on<ToggleSwitchEvent>((event, emit) {
+      emit(SwitchState(!state.isOn));
+    });
+  }
+}

@@ -24,14 +24,14 @@ class BirthDateReg extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: Image.asset(
-              "lib/features/auth/presentation/asset/images/login.png",
+              "lib/features/auth/presentation/asset/images/age.png",
             ),
           ),
           const SizedBox(height: 20),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Text(
-              "Create Your Profile",
+              "Age",
               style: TextStyle(
                   fontSize: 36,
                   color: Theme.of(context).colorScheme.primary,
@@ -39,7 +39,7 @@ class BirthDateReg extends StatelessWidget {
             ),
           ),
           Text(
-            "Kindly provide your first and last name to proceed. ",
+            "Select your age. ",
             style: TextStyle(
                 fontSize: 15, color: Theme.of(context).colorScheme.primary),
           ),

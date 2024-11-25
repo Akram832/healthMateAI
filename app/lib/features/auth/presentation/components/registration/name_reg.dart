@@ -31,7 +31,7 @@ class _FullNameRegState extends State<FullNameReg> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 50),
             child: Image.asset(
-              "lib/features/auth/presentation/asset/images/login.png",
+              "lib/features/auth/presentation/asset/images/name.png",
             ),
           ),
           const SizedBox(height: 20),
