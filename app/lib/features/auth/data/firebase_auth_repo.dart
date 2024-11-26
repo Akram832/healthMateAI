@@ -44,14 +44,12 @@ class FirebaseAuthRepo implements AuthRepo {
     if (firebaseUser == null) {
       return null;
     }
-    return AppPatient(uId: firebaseUser.uid, email: firebaseUser.email!, firstName: '');
-    
-
+    return AppPatient(
+        uId: firebaseUser.uid, email: firebaseUser.email!, firstName: '');
   }
 
   @override
   Future<void> logout() async {
     await firebaseAuth.signOut();
-    
   }
 }
