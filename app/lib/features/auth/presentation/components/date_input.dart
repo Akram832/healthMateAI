@@ -21,7 +21,7 @@ class MyDateInput extends StatelessWidget {
       onChange: (index) {
         print(index);
       },
-      bottomPickerTheme: BottomPickerTheme.plumPlate,
+      bottomPickerTheme: BottomPickerTheme.blue,
     ).show(context);
   }
 

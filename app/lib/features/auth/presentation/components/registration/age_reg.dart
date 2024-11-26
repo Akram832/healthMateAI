@@ -43,7 +43,7 @@ class BirthDateReg extends StatelessWidget {
             style: TextStyle(
                 fontSize: 15, color: Theme.of(context).colorScheme.primary),
           ),
-          const SizedBox(height: 25),
+          const SizedBox(height: 40),
           MyDateInput(text: 'select your age')
         ],
       ),

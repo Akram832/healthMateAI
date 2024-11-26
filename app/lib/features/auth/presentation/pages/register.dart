@@ -1,4 +1,3 @@
-
 import 'package:app/features/auth/presentation/components/registration/age_reg.dart';
 import 'package:app/features/auth/presentation/components/registration/email_reg.dart';
 import 'package:app/features/auth/presentation/components/registration/gender_reg.dart';
@@ -17,6 +16,7 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   PageController _controller = PageController();
+  bool onLastPage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,11 @@ class _RegisterPageState extends State<RegisterPage> {
           children: [
             PageView(
               controller: _controller,
+              onPageChanged: (index) {
+                setState(() {
+                  onLastPage = (index == 4);
+                });
+              },
               children: [
                 FullNameReg(),
                 GenderReg(),
@@ -36,7 +41,46 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
             Container(
               alignment: Alignment(0, 0.85),
-              child: SmoothPageIndicator(controller: _controller, count: 5),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    GestureDetector(
+                        onTap: () {
+                          _controller.previousPage(
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.easeIn);
+                        },
+                        child: Text(
+                          "Back",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                    SmoothPageIndicator(
+                      controller: _controller,
+                      count: 5,
+                      effect: SlideEffect(activeDotColor: Colors.white),
+                    ),
+                    onLastPage
+                        ? GestureDetector(
+                            onTap: () {
+                              _controller.nextPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.easeIn);
+                            },
+                            child: Text(
+                              "Done",
+                              style: TextStyle(color: Colors.white),
+                            ))
+                        : GestureDetector(
+                            onTap: () {
+                              _controller.nextPage(
+                                  duration: Duration(milliseconds: 500),
+                                  curve: Curves.easeIn);
+                            },
+                            child: Text(
+                              "Next",
+                              style: TextStyle(color: Colors.white),
+                            ))
+                  ]),
             )
           ],
         ),
