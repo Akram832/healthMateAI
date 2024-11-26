@@ -26,7 +26,8 @@ class AppUser {
       'lastName': lastName,
       'gender': gender,
 
-      'dateOfBirth': DateFormat('yyyy-MM-dd').format(dateOfBirth), // Date-only format
+      'dateOfBirth':
+          DateFormat('yyyy-MM-dd').format(dateOfBirth), // Date-only format
     };
   }
 
@@ -37,7 +38,8 @@ class AppUser {
       firstName: jsonUser['firstName'],
       lastName: jsonUser['lastName'],
       gender: jsonUser['gender'],
-      dateOfBirth: DateTime.parse(jsonUser['dateOfBirth']), // Parse date-only string
+      dateOfBirth:
+          DateTime.parse(jsonUser['dateOfBirth']), // Parse date-only string
     );
   }
 }
