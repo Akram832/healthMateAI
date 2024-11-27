@@ -1,7 +1,7 @@
 import 'package:intl/intl.dart';
 
 class AppUser {
-  final int uId;
+  final String uId;
   final String email;
   final String firstName;
   final String lastName;
