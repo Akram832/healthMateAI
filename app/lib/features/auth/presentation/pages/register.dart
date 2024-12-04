@@ -22,67 +22,70 @@ class _RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Stack(
-          children: [
-            PageView(
-              controller: _controller,
-              onPageChanged: (index) {
-                setState(() {
-                  onLastPage = (index == 4);
-                });
-              },
-              children: [
-                FullNameReg(),
-                GenderReg(),
-                BirthDateReg(),
-                EmailPage(),
-                PasswordReg()
-              ],
-            ),
-            Container(
-              alignment: Alignment(0, 0.85),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GestureDetector(
-                        onTap: () {
-                          _controller.previousPage(
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.easeIn);
-                        },
-                        child: Text(
-                          "Back",
-                          style: TextStyle(color: Colors.white),
-                        )),
-                    SmoothPageIndicator(
-                      controller: _controller,
-                      count: 5,
-                      effect: SlideEffect(activeDotColor: Colors.white),
-                    ),
-                    onLastPage
-                        ? GestureDetector(
-                            onTap: () {
-                              _controller.nextPage(
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.easeIn);
-                            },
-                            child: Text(
-                              "Done",
-                              style: TextStyle(color: Colors.white),
-                            ))
-                        : GestureDetector(
-                            onTap: () {
-                              _controller.nextPage(
-                                  duration: Duration(milliseconds: 500),
-                                  curve: Curves.easeIn);
-                            },
-                            child: Text(
-                              "Next",
-                              style: TextStyle(color: Colors.white),
-                            ))
-                  ]),
-            )
-          ],
+        body: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          child: Stack(
+            children: [
+              PageView(
+                controller: _controller,
+                onPageChanged: (index) {
+                  setState(() {
+                    onLastPage = (index == 4);
+                  });
+                },
+                children: [
+                  FullNameReg(),
+                  GenderReg(),
+                  BirthDateReg(),
+                  EmailPage(),
+                  PasswordReg()
+                ],
+              ),
+              Container(
+                alignment: Alignment(0, 0.85),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            _controller.previousPage(
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.easeIn);
+                          },
+                          child: Text(
+                            "Back",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                      SmoothPageIndicator(
+                        controller: _controller,
+                        count: 5,
+                        effect: SlideEffect(activeDotColor: Colors.white),
+                      ),
+                      onLastPage
+                          ? GestureDetector(
+                              onTap: () {
+                                _controller.nextPage(
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeIn);
+                              },
+                              child: Text(
+                                "Done",
+                                style: TextStyle(color: Colors.white),
+                              ))
+                          : GestureDetector(
+                              onTap: () {
+                                _controller.nextPage(
+                                    duration: Duration(milliseconds: 500),
+                                    curve: Curves.easeIn);
+                              },
+                              child: Text(
+                                "Next",
+                                style: TextStyle(color: Colors.white),
+                              ))
+                    ]),
+              )
+            ],
+          ),
         ),
       ),
     );
