@@ -5,9 +5,11 @@ class ChatMessageBubble extends StatelessWidget {
   final String message;
 
   // Add a named `key` parameter
-  const ChatMessageBubble(
-      {Key? key, required this.sender, required this.message})
-      : super(key: key);
+  const ChatMessageBubble({
+    super.key,
+    required this.sender,
+    required this.message,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +29,7 @@ class ChatMessageBubble extends StatelessWidget {
           message,
           style: TextStyle(
             color: isUserMessage ? Colors.white : Colors.black,
+            fontSize: 20,
           ),
         ),
       ),
