@@ -2,7 +2,12 @@ import 'package:app/features/auth/presentation/components/date_input.dart';
 import 'package:flutter/material.dart';
 
 class BirthDateReg extends StatelessWidget {
-  const BirthDateReg({super.key});
+  final Function(DateTime) onDateSelected;
+
+  const BirthDateReg({
+    Key? key,
+    required this.onDateSelected,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,10 @@ class BirthDateReg extends StatelessWidget {
                 fontSize: 15, color: Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(height: 40),
-          MyDateInput(text: 'select your age')
+          MyDateInput(
+            text: 'select your age',
+            onDateSelected: onDateSelected,
+          )
         ],
       ),
     );

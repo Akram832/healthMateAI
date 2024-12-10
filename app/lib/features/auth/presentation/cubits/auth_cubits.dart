@@ -26,16 +26,20 @@ class AuthCubits extends Cubit<AuthStates> {
   Future<void> login(String email, String pw) async {
     try {
       emit(AuthLoading());
+      print("AuthCubit: Logging in...");
       final user = await authRepo.loginWithEmailPassowrd(email, pw);
       if (user != null) {
         _currentUser = user;
         emit(Authenticated(user));
+        print("AuthCubit: User authenticated - ${user.email}");
       } else {
         emit(UnAuthenticated());
+        print("AuthCubit: Authentication failed");
       }
     } catch (e) {
       emit(AuthError(e.toString()));
       emit(UnAuthenticated());
+      print("AuthCubit: Login error: $e");
     }
   }
 

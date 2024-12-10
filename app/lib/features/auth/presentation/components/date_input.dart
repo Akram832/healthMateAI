@@ -4,10 +4,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyDateInput extends StatelessWidget {
-  final Function()? onTap;
+  final Function(DateTime) onDateSelected;
   final String text;
 
-  const MyDateInput({super.key, this.onTap, required this.text});
+  const MyDateInput({
+    Key? key,
+    required this.onDateSelected,
+    required this.text,
+  }) : super(key: key);
 
   void _openDatePicker(BuildContext context) {
     BottomPicker.date(
@@ -18,8 +22,8 @@ class MyDateInput extends StatelessWidget {
         fontWeight: FontWeight.bold,
         fontSize: 18,
       ),
-      onChange: (index) {
-        print(index);
+      onChange: (selectedDate) {
+        onDateSelected(selectedDate);
       },
       bottomPickerTheme: BottomPickerTheme.blue,
     ).show(context);

@@ -1,16 +1,16 @@
 import 'package:app/features/auth/presentation/components/my_text_feild.dart';
 import 'package:flutter/material.dart';
 
-class FullNameReg extends StatefulWidget {
-  const FullNameReg({super.key});
+class FullNameReg extends StatelessWidget {
+  final TextEditingController firstNameController;
+  final TextEditingController lastNameController;
 
-  @override
-  State<FullNameReg> createState() => _FullNameRegState();
-}
+  const FullNameReg({
+    super.key,
+    required this.firstNameController,
+    required this.lastNameController,
+  });
 
-class _FullNameRegState extends State<FullNameReg> {
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(

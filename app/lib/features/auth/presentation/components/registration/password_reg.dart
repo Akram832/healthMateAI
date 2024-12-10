@@ -1,16 +1,15 @@
 import 'package:app/features/auth/presentation/components/my_text_feild.dart';
 import 'package:flutter/material.dart';
 
-class PasswordReg extends StatefulWidget {
-  const PasswordReg({super.key});
+class PasswordReg extends StatelessWidget {
+  final TextEditingController passwordController;
+  final TextEditingController confirmPasswordController;
 
-  @override
-  State<PasswordReg> createState() => _PasswordRegState();
-}
-
-class _PasswordRegState extends State<PasswordReg> {
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController conPasswordController = TextEditingController();
+  const PasswordReg({
+    Key? key,
+    required this.passwordController,
+    required this.confirmPasswordController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,15 +53,15 @@ class _PasswordRegState extends State<PasswordReg> {
           const SizedBox(height: 20),
           MyTextField(
               controller: passwordController,
-              hintText: "passowrd",
+              hintText: "Password",
               obscureText: true,
-              icon: Icons.mail_outline),
+              icon: Icons.lock_outline),
           const SizedBox(height: 20),
           MyTextField(
-              controller: passwordController,
-              hintText: "confirme passowrd",
+              controller: confirmPasswordController,
+              hintText: "Confirm Password",
               obscureText: true,
-              icon: Icons.mail_outline),
+              icon: Icons.lock_outline),
           const SizedBox(height: 25),
         ],
       ),

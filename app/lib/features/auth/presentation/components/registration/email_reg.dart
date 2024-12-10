@@ -1,15 +1,14 @@
 import 'package:app/features/auth/presentation/components/my_text_feild.dart';
 import 'package:flutter/material.dart';
 
-class EmailPage extends StatefulWidget {
-  const EmailPage({super.key});
+class EmailPage extends StatelessWidget {
+  final TextEditingController emailController;
 
-  @override
-  State<EmailPage> createState() => _EmailPageState();
-}
+  const EmailPage({
+    Key? key,
+    required this.emailController,
+  }) : super(key: key);
 
-class _EmailPageState extends State<EmailPage> {
-  final TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,14 +44,14 @@ class _EmailPageState extends State<EmailPage> {
             ),
           ),
           Text(
-            "Entre your email address to continue ",
+            "Enter your email address to continue ",
             style: TextStyle(
                 fontSize: 15, color: Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(height: 20),
           MyTextField(
               controller: emailController,
-              hintText: "email",
+              hintText: "Email",
               obscureText: false,
               icon: Icons.mail_outline),
           const SizedBox(height: 25),

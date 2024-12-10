@@ -1,26 +1,38 @@
-import 'package:app/features/auth/presentation/pages/auth_page.dart';
+import 'package:app/features/auth/data/firebase_auth_repo.dart';
+import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
 import 'package:app/firebase_options.dart';
 import 'package:app/theme/light_theme.dart';
+import 'package:app/features/auth/presentation/pages/auth_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app/features/auth/domain/repos/auth_repo.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(const MyApp());
+
+  // Instantiate the repository
+  final FirebaseAuthRepo authRepo = FirebaseAuthRepo();
+
+  runApp(MyApp(authRepo: authRepo));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final AuthRepo authRepo;
 
-  // This widget is the root of your application.
+  const MyApp({super.key, required this.authRepo});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: lightMode,
-      title: 'HealthMate',
-      home: AuthPage(),
+    return BlocProvider(
+      create: (_) => AuthCubits(authRepo: authRepo)..checkAuth(),
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: lightMode,
+        title: 'HealthMate',
+        home: const AuthPage(),
+      ),
     );
   }
 }
