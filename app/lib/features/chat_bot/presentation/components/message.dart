@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 
 class ChatMessageBubble extends StatelessWidget {
@@ -19,20 +20,24 @@ class ChatMessageBubble extends StatelessWidget {
     return Align(
       alignment: isUserMessage ? Alignment.centerRight : Alignment.centerLeft,
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-        decoration: BoxDecoration(
-          color: isUserMessage ? Colors.blueAccent : Colors.grey[300],
-          borderRadius: BorderRadius.circular(15),
-        ),
-        child: Text(
-          message,
-          style: TextStyle(
-            color: isUserMessage ? Colors.white : Colors.black,
-            fontSize: 20,
+          margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+          decoration: BoxDecoration(
+            color: isUserMessage ? Colors.blueAccent : Colors.grey[300],
+            borderRadius: BorderRadius.circular(15),
           ),
-        ),
-      ),
+          child: AnimatedTextKit(
+            animatedTexts: [
+              TypewriterAnimatedText(
+                message,
+                textStyle: TextStyle(
+                  color: isUserMessage ? Colors.white : Colors.black,
+                  fontSize: 20,
+                ),
+              ),
+            ],
+            isRepeatingAnimation: false,
+          )),
     );
   }
 }

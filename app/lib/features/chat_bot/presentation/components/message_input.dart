@@ -14,25 +14,17 @@ class TextInput extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15.0),
       child: TextField(
-        controller: controller,
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(12),
-            borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.primary),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius:
-                BorderRadius.circular(12), // Ensure radius is set here
-            borderSide:
-                BorderSide(color: Theme.of(context).colorScheme.primary),
-          ),
-          hintStyle:
-              TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
-          fillColor: Theme.of(context).colorScheme.tertiary,
-          filled: true,
-        ),
-      ),
+                          controller: controller,
+                          decoration:  InputDecoration(
+                            hintText: hintText,
+                            filled: true,
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
+                          ),
+                        ),
     );
   }
 }
