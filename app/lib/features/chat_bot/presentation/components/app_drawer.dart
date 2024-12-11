@@ -49,8 +49,9 @@ class ConversationDrawer extends StatelessWidget {
                     style: TextStyle(color: Colors.grey[600]),
                   ),
                   onTap: () {
-                    onConversationSelected(index);
                     Navigator.pop(context); // Close the drawer
+                    onConversationSelected(
+                        index); // Notify the parent widget to switch conversation
                   },
                 );
               },

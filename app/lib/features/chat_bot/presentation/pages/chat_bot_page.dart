@@ -85,8 +85,9 @@ class _ChatBotPageState extends State<ChatBotPage> {
         conversations: conversations,
         onConversationSelected: (index) {
           setState(() {
-            currentConversationIndex =
-                index; // Update to the selected conversation
+            currentConversationIndex = index;
+            controller.clear();
+            // Update to the selected conversation
           });
         },
         onNewConversation: startNewConversation,
@@ -123,14 +124,29 @@ class _ChatBotPageState extends State<ChatBotPage> {
               ),
               // List of messages
               Expanded(
-                child: ListView.builder(
-                  itemCount: currentConversation["messages"].length,
-                  itemBuilder: (context, index) {
-                    final message = currentConversation["messages"][index];
-                    return ChatMessageBubble(
-                      sender: message["sender"],
-                      message: message["message"],
-                    );
+                child: FutureBuilder(
+                  future: Future.delayed(
+                      const Duration(milliseconds: 100)), // Simulate delay
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      // Show a loading indicator during the "reload"
+                      return const Center(child: CircularProgressIndicator());
+                    } else {
+                      // Show the messages for the current conversation
+                      final currentConversation =
+                          conversations[currentConversationIndex];
+                      return ListView.builder(
+                        itemCount: currentConversation["messages"].length,
+                        itemBuilder: (context, index) {
+                          final message =
+                              currentConversation["messages"][index];
+                          return ChatMessageBubble(
+                            sender: message["sender"],
+                            message: message["message"],
+                          );
+                        },
+                      );
+                    }
                   },
                 ),
               ),
