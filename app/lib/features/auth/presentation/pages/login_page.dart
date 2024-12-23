@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: false,
                       icon: Icons.email_outlined,
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
 
                     // Password text field
                     MyTextField(
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       icon: Icons.lock_outline_sharp,
                     ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 15),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -136,10 +136,17 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    Image.asset(
-                        "lib/features/auth/presentation/asset/images/google.png"),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(),
+                        child: Image.asset(
+                            "lib/features/auth/presentation/asset/images/google.png"),
+                      ),
+                    ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -160,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 15),
 
                     // Space from the bottom
                   ],
