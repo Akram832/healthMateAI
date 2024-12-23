@@ -46,6 +46,7 @@ dependencies:
   cloud_firestore: ^4.5.0
 
 dev_dependencies:
+  mockito: ^5.0.17
   flutter_test:
     sdk: flutter
 
