@@ -108,12 +108,36 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
 
                     MyButton(
                       text: 'SUBMIT',
                       onTap: login,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 25, horizontal: 25.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child:
+                                  Divider(color: Colors.white, thickness: 1.5)),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              "Or continue with",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          Expanded(
+                              child:
+                                  Divider(color: Colors.white, thickness: 1.5)),
+                        ],
+                      ),
+                    ),
+                    Image.asset(
+                        "lib/features/auth/presentation/asset/images/google.png"),
 
                     const SizedBox(height: 30),
                     Row(

@@ -15,7 +15,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  PageController _controller = PageController();
+  final PageController _controller = PageController();
   bool onLastPage = false;
 
   @override
