@@ -88,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: false,
                       icon: Icons.email_outlined,
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 20),
 
                     // Password text field
                     MyTextField(
@@ -97,7 +97,7 @@ class _LoginPageState extends State<LoginPage> {
                       obscureText: true,
                       icon: Icons.lock_outline_sharp,
                     ),
-                    const SizedBox(height: 25),
+                    const SizedBox(height: 15),
 
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -108,14 +108,45 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 40),
+                    const SizedBox(height: 20),
 
                     MyButton(
                       text: 'SUBMIT',
                       onTap: login,
                     ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 25, horizontal: 25.0),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child:
+                                  Divider(color: Colors.white, thickness: 1.5)),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            child: Text(
+                              "Or continue with",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                          Expanded(
+                              child:
+                                  Divider(color: Colors.white, thickness: 1.5)),
+                        ],
+                      ),
+                    ),
+                    GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        padding: EdgeInsets.all(8),
+                        decoration: BoxDecoration(),
+                        child: Image.asset(
+                            "lib/features/auth/presentation/asset/images/google.png"),
+                      ),
+                    ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -136,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                       ],
                     ),
 
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 15),
 
                     // Space from the bottom
                   ],

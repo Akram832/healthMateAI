@@ -35,7 +35,7 @@ class MyTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle:
               TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
-          fillColor: Theme.of(context).colorScheme.tertiary,
+          fillColor: const Color.fromARGB(224, 255, 255, 255),
           filled: true,
           prefixIcon: icon != null
               ? Icon(icon, color: Theme.of(context).colorScheme.inversePrimary)
