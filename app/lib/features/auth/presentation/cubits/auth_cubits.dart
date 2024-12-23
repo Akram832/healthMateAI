@@ -2,6 +2,8 @@ import 'package:app/features/auth/domain/entities/app_patient.dart';
 import 'package:app/features/auth/domain/repos/auth_repo.dart';
 import 'package:app/features/auth/presentation/cubits/auth_states.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 class AuthCubits extends Cubit<AuthStates> {
   final AuthRepo authRepo;
@@ -68,6 +70,19 @@ class AuthCubits extends Cubit<AuthStates> {
     authRepo.logout();
     emit(UnAuthenticated());
   }
+  Future<void> loginWithGoogle() async {
+  try {
+    emit(AuthLoading());
+    final user = await authRepo.loginWithGoogleAuth();
+    if (user != null) {
+      emit(Authenticated(user)); // Emit the authenticated state
+    } else {
+      emit(UnAuthenticated()); // Emit unauthenticated if login is canceled
+    }
+  } catch (e) {
+    emit(AuthError(e.toString())); // Emit an error state
+  }
+}
 }
 
 class SwitchBloc extends Bloc<SwitchEvent, SwitchState> {

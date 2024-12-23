@@ -2,6 +2,8 @@ import 'package:app/features/auth/domain/entities/app_patient.dart';
 import 'package:app/features/auth/domain/repos/auth_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 
 class FirebaseAuthRepo implements AuthRepo {
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
@@ -86,6 +88,57 @@ class FirebaseAuthRepo implements AuthRepo {
   Future<void> logout() async {
     await firebaseAuth.signOut();
   }
+  @override
+  Future<AppUser?> loginWithGoogleAuth() async {
+  try {
+    final GoogleSignIn googleSignIn = GoogleSignIn();
+    final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
+    if (googleUser == null) {
+      // User canceled the sign-in
+      return null;
+    }
+
+    final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    final UserCredential userCredential =
+        await firebaseAuth.signInWithCredential(credential);
+
+    // Optionally, fetch additional user data from Firestore if needed
+    final userDoc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(userCredential.user!.uid)
+        .get();
+
+    if (!userDoc.exists) {
+      // If the user doesn't exist in Firestore, create their profile
+      await FirebaseFirestore.instance.collection('users').doc(userCredential.user!.uid).set({
+        'email': userCredential.user!.email,
+        'firstName': '', // Add fields as necessary
+        'lastName': '',
+        'dateOfBirth': '', // Placeholder; replace as needed
+      });
+    }
+
+    return AppUser(
+      uId: userCredential.user!.uid,
+      email: userCredential.user!.email!,
+      firstName: userDoc.data()?['firstName'] ?? '',
+      lastName: userDoc.data()?['lastName'] ?? '',
+      dateOfBirth: userDoc.data()?['dateOfBirth'] != null
+          ? DateTime.parse(userDoc.data()!['dateOfBirth'])
+          : DateTime.now(),
+      gender: userDoc.data()?['gender'] ?? '',
+    );
+  } catch (e) {
+    throw Exception('Google Sign-In failed: $e');
+  }
+}
 
   @override
   dynamic noSuchMethod(Invocation invocation) => super.noSuchMethod(invocation);
