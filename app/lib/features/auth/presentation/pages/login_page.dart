@@ -137,7 +137,11 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        final  authCubit = context.read<AuthCubits>();
+                        authCubit.loginWithGoogle();
+
+                      },
                       child: Container(
                         padding: EdgeInsets.all(8),
                         decoration: BoxDecoration(),

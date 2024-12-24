@@ -3,6 +3,7 @@ import 'package:app/features/auth/presentation/components/registration/email_reg
 import 'package:app/features/auth/presentation/components/registration/gender_reg.dart';
 import 'package:app/features/auth/presentation/components/registration/name_reg.dart';
 import 'package:app/features/auth/presentation/components/registration/password_reg.dart';
+import 'package:app/features/chat_bot/presentation/pages/chat_bot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
@@ -29,6 +30,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
   DateTime selectedDate = DateTime(2000, 1, 1);
+  bool isregistered = false;
 
   void register() {
     final email = emailController.text.trim();
@@ -46,6 +48,8 @@ class _RegisterPageState extends State<RegisterPage> {
       return;
     }
 
+    isregistered = true; // make sure that the user has successfully registered
+
     final authCubit = context.read<AuthCubits>();
     authCubit.register(email, password, lastName, firstName, 0, selectedDate);
   }
@@ -61,13 +65,15 @@ class _RegisterPageState extends State<RegisterPage> {
             builder: (context) =>
                 const Center(child: CircularProgressIndicator()),
           );
-        } else if (state is Authenticated) {
-          Navigator.pop(context); // Dismiss loading dialog
+        } else if (state is Authenticated && isregistered) {
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context); // Dismiss loading dialog
+          }
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    const HomePage()), // Replace with your HomePage
+                    const ChatBotPage()), // Replace with your HomePage
           );
         } else if (state is AuthError) {
           Navigator.pop(context); // Dismiss loading dialog
