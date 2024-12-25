@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   void resetPassword() {}
   bool isSwitchOn = false;
+  // to make sure the user is logged in before navigating to the chatbot page
   bool isloggedIn = false;
 
   void login() {
