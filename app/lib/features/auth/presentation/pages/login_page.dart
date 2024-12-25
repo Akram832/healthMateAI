@@ -21,6 +21,7 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController passwordController = TextEditingController();
   void resetPassword() {}
   bool isSwitchOn = false;
+  bool isloggedIn = false;
 
   void login() {
     final String email = emailController.text;
@@ -28,6 +29,7 @@ class _LoginPageState extends State<LoginPage> {
 
     final authCubit = context.read<AuthCubits>();
     if (email.isNotEmpty && pw.isNotEmpty) {
+      isloggedIn = true;
       authCubit.login(email, pw);
     } else {
       if (email.isEmpty) {
@@ -51,14 +53,15 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) =>
                 const Center(child: CircularProgressIndicator()),
           );
-        } else if (state is Authenticated) {
+        } else if (state is Authenticated && isloggedIn) {
           if (Navigator.canPop(context)) {
             Navigator.pop(context); // Dismiss loading dialog
           }
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => const ChatBotPage()), // Navigate to chatbot page
+                builder: (context) =>
+                    const ChatBotPage()), // Navigate to chatbot page
           );
         } else if (state is AuthError) {
           if (Navigator.canPop(context)) {
@@ -200,17 +203,15 @@ class _LoginPageState extends State<LoginPage> {
                             Text(
                               'Don\'t have an account? ',
                               style: TextStyle(
-                                  color:
-                                      Theme.of(context).colorScheme.primary),
+                                  color: Theme.of(context).colorScheme.primary),
                             ),
                             GestureDetector(
                               onTap: widget.togglePages,
                               child: Text(
                                 'Register now',
                                 style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .primary,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
                                     fontWeight: FontWeight.bold),
                               ),
                             ),
