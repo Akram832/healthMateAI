@@ -4,14 +4,14 @@ class AccountInfoHeader extends StatelessWidget {
   final String userName;
   final String userEmail;
   final String? profileImageUrl;
-  final VoidCallback onEditProfile;
+  final VoidCallback onLogOut;
 
   const AccountInfoHeader({
     super.key,
     required this.userName,
     required this.userEmail,
     this.profileImageUrl,
-    required this.onEditProfile,
+    required this.onLogOut,
   });
 
   @override
@@ -76,7 +76,7 @@ class AccountInfoHeader extends StatelessWidget {
           Align(
             alignment: Alignment.bottomLeft,
             child: TextButton(
-              onPressed: onEditProfile,
+              onPressed: onLogOut,
               child: Row(
                 children: [
                   Icon(

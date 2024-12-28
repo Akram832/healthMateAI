@@ -1,3 +1,4 @@
+import 'package:app/features/auth/presentation/pages/login_page.dart';
 import 'package:app/features/chat_bot/presentation/components/account_info.dart';
 import 'package:flutter/material.dart';
 
@@ -23,10 +24,13 @@ class ConversationDrawer extends StatelessWidget {
             userName: "John Doe", // Replace with dynamic user name
             userEmail: "johndoe@example.com", // Replace with dynamic email
             profileImageUrl: null, // Optional: Provide a profile image URL
-            onEditProfile: () {
-              // Handle "Edit Profile" functionality
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Edit Profile clicked")),
+            onLogOut: () {
+              // Navigate back to the login page
+              
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                    builder: (context) =>
+                        LoginPage()), // Replace LoginPage with your actual login page widget
               );
             },
           ),
