@@ -1,6 +1,9 @@
+import 'package:app/features/auth/presentation/cubits/auth_states.dart';
 import 'package:app/features/auth/presentation/pages/login_page.dart';
 import 'package:app/features/chat_bot/presentation/components/account_info.dart';
 import 'package:flutter/material.dart';
+import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ConversationDrawer extends StatelessWidget {
   final List<Map<String, dynamic>> conversations;
@@ -16,21 +19,22 @@ class ConversationDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Get the authenticated user data directly from the AuthCubits state
+    final authCubit = context.read<AuthCubits>();
+    final user = (authCubit.state as Authenticated).patient;
+
     return Drawer(
       child: Column(
         children: [
-          // Use the new AccountInfoHeader widget
+          // Display user details directly
           AccountInfoHeader(
-            userName: "John Doe", // Replace with dynamic user name
-            userEmail: "johndoe@example.com", // Replace with dynamic email
+            userName: "${user.firstName} ${user.lastName}",
+            userEmail: user.email,
             profileImageUrl: null, // Optional: Provide a profile image URL
             onLogOut: () {
-              // Navigate back to the login page
-              
+              authCubit.logout();
               Navigator.of(context).pushReplacement(
-                MaterialPageRoute(
-                    builder: (context) =>
-                        LoginPage()), // Replace LoginPage with your actual login page widget
+                MaterialPageRoute(builder: (context) => const LoginPage()),
               );
             },
           ),
