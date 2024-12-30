@@ -12,7 +12,9 @@ class TextInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 3.0,
+      ),
       child: TextField(
         controller: controller,
         style: TextStyle(color: Colors.white, decoration: TextDecoration.none),
