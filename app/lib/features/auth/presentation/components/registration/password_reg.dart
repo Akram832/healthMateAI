@@ -6,10 +6,10 @@ class PasswordReg extends StatelessWidget {
   final TextEditingController confirmPasswordController;
 
   const PasswordReg({
-    Key? key,
+    super.key,
     required this.passwordController,
     required this.confirmPasswordController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -8,10 +8,10 @@ class MyDateInput extends StatelessWidget {
   final String text;
 
   const MyDateInput({
-    Key? key,
+    super.key,
     required this.onDateSelected,
     required this.text,
-  }) : super(key: key);
+  });
 
   void _openDatePicker(BuildContext context) {
     BottomPicker.date(

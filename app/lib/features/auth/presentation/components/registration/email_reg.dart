@@ -5,9 +5,9 @@ class EmailPage extends StatelessWidget {
   final TextEditingController emailController;
 
   const EmailPage({
-    Key? key,
+    super.key,
     required this.emailController,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

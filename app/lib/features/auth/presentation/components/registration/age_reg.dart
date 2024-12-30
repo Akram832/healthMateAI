@@ -5,9 +5,9 @@ class BirthDateReg extends StatelessWidget {
   final Function(DateTime) onDateSelected;
 
   const BirthDateReg({
-    Key? key,
+    super.key,
     required this.onDateSelected,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

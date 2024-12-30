@@ -1,3 +1,4 @@
+import 'package:app/const.dart';
 import 'package:app/features/auth/data/firebase_auth_repo.dart';
 import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
 import 'package:app/firebase_options.dart';
@@ -7,6 +8,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/auth/domain/repos/auth_repo.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,7 +16,7 @@ void main() async {
 
   // Instantiate the repository
   final FirebaseAuthRepo authRepo = FirebaseAuthRepo();
-
+  Gemini.init(apiKey: apiKey);
   runApp(MyApp(authRepo: authRepo));
 }
 
