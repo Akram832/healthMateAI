@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    const ChatBotPage()), // Replace with your HomePage
+                    ChatBotPage()), // Replace with your HomePage
           );
         } else if (state is AuthError) {
           Navigator.pop(context); // Dismiss loading dialog

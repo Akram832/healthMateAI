@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
             context,
             MaterialPageRoute(
                 builder: (context) =>
-                    const ChatBotPage()), // Navigate to chatbot page
+                    ChatBotPage()), // Navigate to chatbot page
           );
         } else if (state is AuthError) {
           if (Navigator.canPop(context)) {
