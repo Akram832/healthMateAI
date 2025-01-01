@@ -17,7 +17,7 @@ class AppUser {
     required this.dateOfBirth,
   });
 
-  // Convert AppPatient to JSON format
+  // Convert AppUser to JSON format
   Map<String, dynamic> toJson() {
     return {
       'uId': uId,
@@ -25,9 +25,7 @@ class AppUser {
       'firstName': firstName,
       'lastName': lastName,
       'gender': gender,
-
-      'dateOfBirth':
-          DateFormat('yyyy-MM-dd').format(dateOfBirth), // Date-only format
+      'dateOfBirth': DateFormat('yyyy-MM-dd').format(dateOfBirth),
     };
   }
 
@@ -38,8 +36,7 @@ class AppUser {
       firstName: jsonUser['firstName'],
       lastName: jsonUser['lastName'],
       gender: jsonUser['gender'],
-      dateOfBirth:
-          DateTime.parse(jsonUser['dateOfBirth']), // Parse date-only string
+      dateOfBirth: DateTime.parse(jsonUser['dateOfBirth']),
     );
   }
 }
