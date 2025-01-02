@@ -23,37 +23,39 @@ class BirthDateReg extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 60),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Image.asset(
-              "lib/features/auth/presentation/asset/images/age.png",
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 60),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Image.asset(
+                "lib/features/auth/presentation/asset/images/age.png",
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(
-              "Age",
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                "Age",
+                style: TextStyle(
+                    fontSize: 36,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Text(
+              "Select your age. ",
               style: TextStyle(
-                  fontSize: 36,
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 15, color: Theme.of(context).colorScheme.primary),
             ),
-          ),
-          Text(
-            "Select your age. ",
-            style: TextStyle(
-                fontSize: 15, color: Theme.of(context).colorScheme.primary),
-          ),
-          const SizedBox(height: 40),
-          MyDateInput(
-            text: 'select your age',
-            onDateSelected: onDateSelected,
-          )
-        ],
+            const SizedBox(height: 40),
+            MyDateInput(
+              text: 'select your age',
+              onDateSelected: onDateSelected,
+            )
+          ],
+        ),
       ),
     );
   }

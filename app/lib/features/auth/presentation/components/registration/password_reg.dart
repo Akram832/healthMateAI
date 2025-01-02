@@ -25,45 +25,47 @@ class PasswordReg extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 60),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Image.asset(
-              "lib/features/auth/presentation/asset/images/password.png",
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 60),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Image.asset(
+                "lib/features/auth/presentation/asset/images/password.png",
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(
-              "Secure Your Account",
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                "Secure Your Account",
+                style: TextStyle(
+                    fontSize: 36,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Text(
+              "Enter your password to proceed ",
               style: TextStyle(
-                  fontSize: 36,
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 15, color: Theme.of(context).colorScheme.primary),
             ),
-          ),
-          Text(
-            "Enter your password to proceed ",
-            style: TextStyle(
-                fontSize: 15, color: Theme.of(context).colorScheme.primary),
-          ),
-          const SizedBox(height: 20),
-          MyTextField(
-              controller: passwordController,
-              hintText: "Password",
-              obscureText: true,
-              icon: Icons.lock_outline),
-          const SizedBox(height: 20),
-          MyTextField(
-              controller: confirmPasswordController,
-              hintText: "Confirm Password",
-              obscureText: true,
-              icon: Icons.lock_outline),
-          const SizedBox(height: 25),
-        ],
+            const SizedBox(height: 20),
+            MyTextField(
+                controller: passwordController,
+                hintText: "Password",
+                obscureText: true,
+                icon: Icons.lock_outline),
+            const SizedBox(height: 20),
+            MyTextField(
+                controller: confirmPasswordController,
+                hintText: "Confirm Password",
+                obscureText: true,
+                icon: Icons.lock_outline),
+            const SizedBox(height: 25),
+          ],
+        ),
       ),
     );
   }

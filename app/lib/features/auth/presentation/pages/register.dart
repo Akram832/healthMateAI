@@ -85,6 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
+            resizeToAvoidBottomInset: false,
             body: Stack(
               children: [
                 PageView(
@@ -159,4 +160,3 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 }
-

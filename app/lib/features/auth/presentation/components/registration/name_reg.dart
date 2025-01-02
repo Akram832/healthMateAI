@@ -25,44 +25,46 @@ class FullNameReg extends StatelessWidget {
           end: Alignment.bottomCenter,
         ),
       ),
-      child: Column(
-        children: [
-          const SizedBox(height: 60),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 50),
-            child: Image.asset(
-              "lib/features/auth/presentation/asset/images/name.png",
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 60),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: Image.asset(
+                "lib/features/auth/presentation/asset/images/name.png",
+              ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(12.0),
-            child: Text(
-              "Create Your Profile",
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Text(
+                "Create Your Profile",
+                style: TextStyle(
+                    fontSize: 36,
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+            Text(
+              "Kindly provide your first and last name to proceed. ",
               style: TextStyle(
-                  fontSize: 36,
-                  color: Theme.of(context).colorScheme.primary,
-                  fontWeight: FontWeight.bold),
+                  fontSize: 15, color: Theme.of(context).colorScheme.primary),
             ),
-          ),
-          Text(
-            "Kindly provide your first and last name to proceed. ",
-            style: TextStyle(
-                fontSize: 15, color: Theme.of(context).colorScheme.primary),
-          ),
-          const SizedBox(height: 20),
-          MyTextField(
-              controller: firstNameController,
-              hintText: "First Name",
-              obscureText: false,
-              icon: Icons.person_outline),
-          const SizedBox(height: 25),
-          MyTextField(
-              controller: lastNameController,
-              hintText: "Last Name",
-              obscureText: false,
-              icon: Icons.person_outline)
-        ],
+            const SizedBox(height: 20),
+            MyTextField(
+                controller: firstNameController,
+                hintText: "First Name",
+                obscureText: false,
+                icon: Icons.person_outline),
+            const SizedBox(height: 25),
+            MyTextField(
+                controller: lastNameController,
+                hintText: "Last Name",
+                obscureText: false,
+                icon: Icons.person_outline)
+          ],
+        ),
       ),
     );
   }
