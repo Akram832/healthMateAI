@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "645427572355-8et8cuu1f3eqqp6nkht0b95f4rg4bfsj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.nit.HealthMateAI",
+            "certificate_hash": "cc4c0438c34b1221cae2c2042c0cfcdfade2f863"
+          }
+        },
+        {
           "client_id": "645427572355-lbotqhms8baphp41l2g10r0o1pk1eva8.apps.googleusercontent.com",
           "client_type": 3
         }
