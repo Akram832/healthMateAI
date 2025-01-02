@@ -1,12 +1,14 @@
+import 'package:app/features/chat_bot/presentation/components/message_input.dart';
+import 'package:app/features/chat_bot/presentation/pages/medical_classifier_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:app/features/chat_bot/presentation/components/app_drawer.dart'; // Ensure this is the correct path
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
+import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:app/features/chat_bot/presentation/components/message.dart';
-
 
 class ChatBotPage extends StatefulWidget {
   const ChatBotPage({super.key});
@@ -17,6 +19,8 @@ class ChatBotPage extends StatefulWidget {
 
 class _ChatBotPageState extends State<ChatBotPage> {
   final TextEditingController controller = TextEditingController();
+  final MedicalClassifierService _classifierService =
+      MedicalClassifierService();
 
   // Conversations and flow management
   List<Map<String, dynamic>> conversations = [];
@@ -54,8 +58,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
       if (doc.exists) {
         final data = doc.data();
         setState(() {
-          conversations = List<Map<String, dynamic>>.from(
-              data?['conversations'] ?? []);
+          conversations =
+              List<Map<String, dynamic>>.from(data?['conversations'] ?? []);
           _isLoading = false;
         });
       } else {
@@ -130,6 +134,37 @@ class _ChatBotPageState extends State<ChatBotPage> {
     }
   }
 
+  Future<String> generateGeminiPrompt(String aiResponse) async {
+    // Create the prompt based on the AI response
+    String prompt = """
+      The patient has been diagnosed with $aiResponse.
+
+Write a brief and clear explanation of the condition and its impact on health.
+Keep the response short and concise, as it will be displayed on a phone screen.
+Format the response with headings and bullet points for easy readability, avoiding unnecessary symbols or markdown-like syntax.
+Include practical advice, such as recommended treatments, lifestyle changes, or management strategies.
+Provide user-specific guidance, such as: "Please consult a doctor if symptoms worsen, persist, or do not improve."
+Ensure the response is actionable, easy to read, and tailored for a mobile user experience.
+      """;
+
+    try {
+      // Execute the prompt in Gemini
+      final value = await Gemini.instance.prompt(parts: [
+        Part.text(prompt),
+      ]);
+
+      // Check if value or output is null and handle it gracefully
+      if (value == null || value.output == null) {
+        return "Error: No response was returned from Gemini.";
+      }
+
+      return value.output!; // Output is guaranteed to be non-null here
+    } catch (e) {
+      // Handle exceptions
+      return "Error: Failed to process the prompt. ${e.toString()}";
+    }
+  }
+
   // Function to process user input
   void processUserInput(String input) async {
     // Add a bot acknowledgment message
@@ -145,13 +180,15 @@ class _ChatBotPageState extends State<ChatBotPage> {
     _saveChats();
 
     // Simulate processing and make an API call to the AI model
-    final aiResponse = await callAIModel(input);
+    final aiResponse = await _classifierService.getDiagnosis(input);
+    final geminiPrompt = await generateGeminiPrompt(aiResponse);
 
     // Display the response from the AI model
     setState(() {
       conversations[currentConversationIndex]["messages"].add({
         "sender": "bot",
-        "message": "Based on your symptoms: '$input', here's what I found: $aiResponse",
+        "message":
+            "Based on your symptoms: '$input', here's what I found: $geminiPrompt",
       });
 
       // Update the lastUpdated timestamp
@@ -163,27 +200,6 @@ class _ChatBotPageState extends State<ChatBotPage> {
   }
 
   // Function to call the AI model API
-  Future<String> callAIModel(String symptoms) async {
-    try {
-      final response = await http.post(
-        Uri.parse("http://127.0.0.1:8000/predict"), // Replace with your API endpoint
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: json.encode({"text": symptoms}),
-      );
-
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body);
-        return data["diagnosis"]; // Assuming the API response has a "diagnosis" field
-      } else {
-        return "Error: Unable to process your symptoms.";
-      }
-    } catch (e) {
-      return "Error: Something went wrong while processing your symptoms.";
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     if (_isLoading) {
@@ -266,10 +282,9 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 child: Row(
                   children: [
                     Expanded(
-                      child: TextField(
+                      child: TextInput(
                         controller: controller,
-                        decoration:
-                            const InputDecoration(hintText: "Type your message..."),
+                        hintText: "Type you Symptoms...",
                       ),
                     ),
                     IconButton(
