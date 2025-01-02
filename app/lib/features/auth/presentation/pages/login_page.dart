@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) =>
                 const Center(child: CircularProgressIndicator()),
           );
-        } else if (state is Authenticated && isloggedIn) {
+        } else if (state is Authenticated ) {
           if (Navigator.canPop(context)) {
             Navigator.pop(context); // Dismiss loading dialog
           }
