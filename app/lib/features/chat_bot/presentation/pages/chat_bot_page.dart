@@ -6,8 +6,6 @@ import 'package:app/features/chat_bot/presentation/components/app_drawer.dart'; 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:app/features/chat_bot/presentation/components/message.dart';
 
 class ChatBotPage extends StatefulWidget {

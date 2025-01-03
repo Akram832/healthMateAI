@@ -55,13 +55,13 @@ class PasswordReg extends StatelessWidget {
             MyTextField(
                 controller: passwordController,
                 hintText: "Password",
-                obscureText: true,
+                obscureText: false,
                 icon: Icons.lock_outline),
             const SizedBox(height: 20),
             MyTextField(
                 controller: confirmPasswordController,
                 hintText: "Confirm Password",
-                obscureText: true,
+                obscureText: false,
                 icon: Icons.lock_outline),
             const SizedBox(height: 25),
           ],
