@@ -7,6 +7,7 @@ import 'package:app/features/auth/presentation/cubits/auth_states.dart';
 import 'package:app/features/chat_bot/presentation/pages/chat_bot_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   final void Function()? togglePages;
@@ -19,7 +20,28 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  void resetPassword() {}
+  void resetPassword() async {
+    final String email = emailController.text.trim();
+
+    if (email.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Please enter your email")),
+      );
+      return;
+    }
+
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Password reset link sent to your email")),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Error: ${e.toString()}")),
+      );
+    }
+  }
+
   bool isSwitchOn = false;
   // to make sure the user is logged in before navigating to the chatbot page
   bool isloggedIn = false;
@@ -54,14 +76,15 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) =>
                 const Center(child: CircularProgressIndicator()),
           );
-        } else if (state is Authenticated && isloggedIn) {
+        } else if (state is Authenticated ) {
           if (Navigator.canPop(context)) {
             Navigator.pop(context); // Dismiss loading dialog
           }
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-                builder: (context) => ChatBotPage()), // Navigate to chatbot page
+                builder: (context) =>
+                    ChatBotPage()), // Navigate to chatbot page
           );
         } else if (state is AuthError) {
           if (Navigator.canPop(context)) {
