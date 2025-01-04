@@ -282,7 +282,7 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
                     Expanded(
                       child: TextInput(
                         controller: controller,
-                        hintText: "Type you Symptoms...",
+                        hintText: "Type your Symptoms...",
                       ),
                     ),
                     IconButton(

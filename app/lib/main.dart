@@ -10,8 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/auth/domain/repos/auth_repo.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Instantiate the repository

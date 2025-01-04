@@ -48,6 +48,8 @@ dependencies:
   equatable: ^2.0.5
   flutter_gemini: ^3.0.0
   http: ^1.2.2
+  flutter_native_splash: ^2.4.3
+  
 
 dev_dependencies:
   mockito: ^5.0.17
@@ -83,6 +85,7 @@ flutter:
     - lib/features/auth/presentation/asset/images/new_password.png
     - lib/features/auth/presentation/asset/images/registration.png
     - lib/features/auth/presentation/asset/images/google.png
+    - lib/features/auth/presentation/asset/images/splash.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -109,3 +112,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+
+flutter_native_splash:
+  color: "#00bfff" # Background color (hex or color name)
+  image: lib/features/auth/presentation/asset/images/splash.png # Path to your splash screen image
+  android: true # Enable for Android
+  ios: false # Enable for iOS
