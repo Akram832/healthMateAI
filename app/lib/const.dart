@@ -1,2 +1,2 @@
 const String apiKey = "AIzaSyDUrafne2jNShI61moOZ4P74RU-O1-h-XA";
-const String baseUrl = "http://10.0.2.2:8000"; 
+const String baseUrl = "https://f4f4-105-100-17-15.ngrok-free.app";
