@@ -21,6 +21,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   final PageController _controller = PageController();
   bool onLastPage = false;
+  bool onFirstpage = true;
 
   // Placeholder controllers for collecting data from the pages
   final TextEditingController emailController = TextEditingController();
@@ -69,11 +70,10 @@ class _RegisterPageState extends State<RegisterPage> {
           if (Navigator.canPop(context)) {
             Navigator.pop(context); // Dismiss loading dialog
           }
-          Navigator.pushReplacement(
+          Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    ChatBotPage()), // Replace with your HomePage
+            MaterialPageRoute(builder: (context) => const ChatBotPage()),
+            (route) => false,
           );
         } else if (state is AuthError) {
           Navigator.pop(context); // Dismiss loading dialog
@@ -93,6 +93,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   onPageChanged: (index) {
                     setState(() {
                       onLastPage = (index == 4);
+                      onFirstpage = (index == 0);
                     });
                   },
                   children: [
@@ -118,10 +119,14 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          _controller.previousPage(
-                            duration: const Duration(milliseconds: 500),
-                            curve: Curves.easeIn,
-                          );
+                          if (onFirstpage) {
+                            widget.togglePages?.call();
+                          } else {
+                            _controller.previousPage(
+                              duration: const Duration(milliseconds: 500),
+                              curve: Curves.easeIn,
+                            );
+                          }
                         },
                         child: const Text(
                           "Back",

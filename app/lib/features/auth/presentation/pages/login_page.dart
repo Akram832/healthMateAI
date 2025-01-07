@@ -76,15 +76,14 @@ class _LoginPageState extends State<LoginPage> {
             builder: (context) =>
                 const Center(child: CircularProgressIndicator()),
           );
-        } else if (state is Authenticated ) {
+        } else if (state is Authenticated) {
           if (Navigator.canPop(context)) {
             Navigator.pop(context); // Dismiss loading dialog
           }
-          Navigator.pushReplacement(
+          Navigator.pushAndRemoveUntil(
             context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    ChatBotPage()), // Navigate to chatbot page
+            MaterialPageRoute(builder: (context) => const ChatBotPage()),
+            (route) => false,
           );
         } else if (state is AuthError) {
           if (Navigator.canPop(context)) {

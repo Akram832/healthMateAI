@@ -1,9 +1,9 @@
 import 'package:app/features/auth/presentation/cubits/auth_states.dart';
-import 'package:app/features/auth/presentation/pages/login_page.dart';
 import 'package:app/features/chat_bot/presentation/components/account_info.dart';
 import 'package:flutter/material.dart';
 import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:app/features/auth/presentation/pages/auth_page.dart ';
 
 class ConversationDrawer extends StatelessWidget {
   final List<Map<String, dynamic>> conversations;
@@ -33,8 +33,10 @@ class ConversationDrawer extends StatelessWidget {
             profileImageUrl: null, // Optional: Provide a profile image URL
             onLogOut: () {
               authCubit.logout();
-              Navigator.of(context).pushReplacement(
-                MaterialPageRoute(builder: (context) => const LoginPage()),
+              authCubit.logout();
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => const AuthPage()),
+                (route) => false,
               );
             },
           ),
