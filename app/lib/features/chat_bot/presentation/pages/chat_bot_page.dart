@@ -1,3 +1,4 @@
+import 'package:app/features/chat_bot/presentation/components/messageWidget.dart';
 import 'package:app/features/chat_bot/presentation/components/message_input.dart';
 import 'package:app/features/chat_bot/presentation/pages/medical_classifier_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -90,27 +91,26 @@ class _ChatBotPageState extends State<ChatBotPage> {
   }
 
   // Function to start the symptoms collection
+// Function to start the symptoms collection
   void askForSymptoms() {
     setState(() {
-      conversations.add({
-        "title": "Conversation ${conversations.length + 1}",
-        "messages": [
-          {
-            "sender": "bot",
-            "message": "Please describe all the symptoms you're experiencing.",
-          }
-        ],
-        "lastUpdated": DateTime.now(),
+      // Add a bot message to the current conversation
+      conversations[currentConversationIndex]["messages"].add({
+        "sender": "bot",
+        "message": "Please describe all the symptoms you're experiencing.",
       });
+      conversations[currentConversationIndex]["lastUpdated"] = DateTime.now();
     });
-    _saveChats(); // Save the initial conversation
+
+    // Save the updated chats to Firestore
+    _saveChats();
   }
 
   // Function to handle user response
   void handleUserResponse() {
     if (controller.text.trim().isNotEmpty) {
       setState(() {
-        // Add user's message to chat
+        // Add user's message to the current conversation
         conversations[currentConversationIndex]["messages"].add({
           "sender": "user",
           "message": controller.text.trim(),
@@ -130,6 +130,26 @@ class _ChatBotPageState extends State<ChatBotPage> {
       });
       _saveChats(); // Save updated conversations
     }
+  }
+
+  void startNewConversation() {
+    setState(() {
+      conversations.add({
+        "title": "Conversation ${conversations.length + 1}",
+        "messages": [], // Start with an empty message array
+        "lastUpdated": DateTime.now(),
+      });
+
+      // Set the new conversation as active
+      currentConversationIndex = conversations.length - 1;
+
+      // Reset state variables for the new conversation
+      userSymptoms = "";
+      isAskingSymptoms = true;
+
+      // Add the bot's initial message for symptoms
+      askForSymptoms();
+    });
   }
 
   Future<String> generateGeminiPrompt(String aiResponse) async {
@@ -183,6 +203,7 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
 
     // Display the response from the AI model
     setState(() {
+      conversations[currentConversationIndex]["title"] = aiResponse;
       conversations[currentConversationIndex]["messages"].add({
         "sender": "bot",
         "message":
@@ -200,16 +221,19 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
   // Function to call the AI model API
   @override
   Widget build(BuildContext context) {
-    if (_isLoading) {
-      return Scaffold(
-        appBar: AppBar(title: const Text("ChatBot")),
-        body: const Center(child: CircularProgressIndicator()),
-      );
-    }
-
     final currentConversation = conversations.isNotEmpty
         ? conversations[currentConversationIndex]
-        : {"messages": [], "title": "Start a new conversation"};
+        : {
+            "messages": [
+              {
+                "sender": "bot",
+                "message":
+                    "👋 Welcome to HealthMateAI! 🌟 This is a prototype 🤖 designed to assist you with medical insights and guidance. 🩺 Describe your symptoms, and I'll do my best to provide useful information or advice. ⚠️ Please note: This is not a substitute for professional medical consultation.",
+              },
+              {"sender": "bot", "messageWidget": true}
+            ],
+            "title": "Start a new conversation"
+          };
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -222,17 +246,7 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
           });
         },
         onNewConversation: () {
-          setState(() {
-            conversations.add({
-              "title": "Conversation ${conversations.length + 1}",
-              "messages": [],
-              "lastUpdated": DateTime.now(),
-            });
-            currentConversationIndex = conversations.length - 1;
-            userSymptoms = "";
-            isAskingSymptoms = true;
-            askForSymptoms();
-          });
+          startNewConversation(); // Initialize the conversation with the bot's first message
         },
       ),
       body: Container(
@@ -268,10 +282,17 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
                   itemCount: currentConversation["messages"].length,
                   itemBuilder: (context, index) {
                     final message = currentConversation["messages"][index];
-                    return ChatMessageBubble(
-                      sender: message["sender"],
-                      message: message["message"],
-                    );
+                    return message.containsKey("messageWidget")
+                        ? ChatWidgetMessageBubble(
+                            sender: message["sender"],
+                            onTap: () {
+                              startNewConversation(); // Create a new conversation when tapped
+                            },
+                          )
+                        : ChatMessageBubble(
+                            sender: message["sender"],
+                            message: message["message"],
+                          );
                   },
                 ),
               ),
