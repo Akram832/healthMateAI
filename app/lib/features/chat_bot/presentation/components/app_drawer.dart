@@ -35,7 +35,6 @@ class ConversationDrawer extends StatelessWidget {
             profileImageUrl: null, // Optional: Provide a profile image URL
             onLogOut: () {
               authCubit.logout();
-              authCubit.logout();
               Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(builder: (context) => const AuthPage()),
                 (route) => false,
