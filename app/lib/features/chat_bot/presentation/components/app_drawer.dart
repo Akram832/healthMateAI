@@ -9,12 +9,14 @@ class ConversationDrawer extends StatelessWidget {
   final List<Map<String, dynamic>> conversations;
   final Function(int) onConversationSelected;
   final VoidCallback onNewConversation;
+  final Function(int) onDeleteConversation;
 
   const ConversationDrawer({
     super.key,
     required this.conversations,
     required this.onConversationSelected,
     required this.onNewConversation,
+    required this.onDeleteConversation,
   });
 
   @override
@@ -47,22 +49,34 @@ class ConversationDrawer extends StatelessWidget {
               itemCount: conversations.length,
               itemBuilder: (context, index) {
                 final conversation = conversations[index];
-                return ListTile(
-                  title: Text(
-                    conversation["title"],
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.bold),
+                return Dismissible(
+                  key: ValueKey(conversation["title"]),
+                  direction: DismissDirection.endToStart,
+                  background: Container(
+                    color: Colors.red,
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: const Icon(Icons.delete, color: Colors.white),
                   ),
-                  subtitle: Text(
-                    "Last updated: ${conversation['lastUpdated']}",
-                    style: TextStyle(color: Colors.grey[600]),
-                  ),
-                  onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    onConversationSelected(
-                        index); // Notify the parent widget to switch conversation
+                  onDismissed: (direction) {
+                    onDeleteConversation(index);
                   },
+                  child: ListTile(
+                    title: Text(
+                      conversation["title"],
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    subtitle: Text(
+                      "Last updated: ${conversation['lastUpdated']}",
+                      style: TextStyle(color: Colors.grey[600]),
+                    ),
+                    onTap: () {
+                      Navigator.pop(context); // Close the drawer
+                      onConversationSelected(index);
+                    },
+                  ),
                 );
               },
             ),

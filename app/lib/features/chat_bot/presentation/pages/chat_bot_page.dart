@@ -152,6 +152,13 @@ class _ChatBotPageState extends State<ChatBotPage> {
     });
   }
 
+  void _deleteConversation(int index) async {
+    setState(() {
+      conversations.removeAt(index);
+    });
+    await _saveChats(); // Save updated conversations to Firestore
+  }
+
   Future<String> generateGeminiPrompt(String aiResponse) async {
     // Create the prompt based on the AI response
     String prompt = """
@@ -248,6 +255,7 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
         onNewConversation: () {
           startNewConversation(); // Initialize the conversation with the bot's first message
         },
+        onDeleteConversation: (index) => _deleteConversation(index),
       ),
       body: Container(
         decoration: const BoxDecoration(
