@@ -1,3 +1,4 @@
+import 'package:app/features/auth/presentation/cubits/auth_states.dart';
 import 'package:app/features/chat_bot/presentation/components/messageWidget.dart';
 import 'package:app/features/chat_bot/presentation/components/message_input.dart';
 import 'package:app/features/chat_bot/presentation/pages/medical_classifier_service.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app/features/auth/presentation/cubits/auth_cubits.dart';
 import 'package:flutter_gemini/flutter_gemini.dart';
 import 'package:app/features/chat_bot/presentation/components/message.dart';
+import 'package:intl/intl.dart';
 
 class ChatBotPage extends StatefulWidget {
   const ChatBotPage({super.key});
@@ -24,8 +26,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
   // Conversations and flow management
   List<Map<String, dynamic>> conversations = [];
   int currentConversationIndex = 0;
-  String userSymptoms = ""; // Stores user-provided symptoms
-
+  String userSymptoms = "";
+  bool hasShownWelcomeMessage = false; // Stores user-provided symptoms
   // Conversation states
   bool isAskingSymptoms = true; // True when bot is asking for symptoms
   bool _isLoading = true; // For Firestore loading state
@@ -34,6 +36,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
   @override
   void initState() {
     super.initState();
+
     final authCubit = context.read<AuthCubits>();
     userId = authCubit.currentUser?.uId ?? ''; // Ensure userId is valid
 
@@ -137,7 +140,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
       conversations.add({
         "title": "Conversation ${conversations.length + 1}",
         "messages": [], // Start with an empty message array
-        "lastUpdated": DateTime.now(),
+        "lastUpdated": DateFormat('yyyy-dd-MM HH:mm').format(DateTime.now()),
       });
 
       // Set the new conversation as active
@@ -170,6 +173,7 @@ Format the response with headings and bullet points for easy readability, avoidi
 Include practical advice, such as recommended treatments, lifestyle changes, or management strategies.
 Provide user-specific guidance, such as: "Please consult a doctor if symptoms worsen, persist, or do not improve."
 Ensure the response is actionable, easy to read, and tailored for a mobile user experience.
+use some emojys in your responseto make it more friendly . 
       """;
 
     try {
@@ -192,12 +196,14 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
 
   // Function to process user input
   void processUserInput(String input) async {
+    final authCubit = context.read<AuthCubits>();
+    final user = (authCubit.state as Authenticated).patient;
     // Add a bot acknowledgment message
     setState(() {
       conversations[currentConversationIndex]["messages"].add({
         "sender": "bot",
         "message":
-            "Thank you! I have noted your symptoms. Let me process the information.",
+            "Thank you ${user.firstName}! I have noted your symptoms. Let me process the information.",
       });
     });
 
@@ -207,14 +213,14 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
     // Simulate processing and make an API call to the AI model
     final aiResponse = await _classifierService.getDiagnosis(input);
     final geminiPrompt = await generateGeminiPrompt(aiResponse);
-
+    final match = RegExp(r"\['(.+?)'\]").firstMatch(aiResponse);
     // Display the response from the AI model
     setState(() {
-      conversations[currentConversationIndex]["title"] = aiResponse;
+      conversations[currentConversationIndex]["title"] = match?.group(1)!;
       conversations[currentConversationIndex]["messages"].add({
         "sender": "bot",
         "message":
-            "Based on your symptoms: '$input', here's what I found: $geminiPrompt",
+            "Based on your symptoms ${user.firstName}, here's what I found: $geminiPrompt",
       });
 
       // Update the lastUpdated timestamp
@@ -232,14 +238,9 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
         ? conversations[currentConversationIndex]
         : {
             "messages": [
-              {
-                "sender": "bot",
-                "message":
-                    "👋 Welcome to HealthMateAI! 🌟 This is a prototype 🤖 designed to assist you with medical insights and guidance. 🩺 Describe your symptoms, and I'll do my best to provide useful information or advice. ⚠️ Please note: This is not a substitute for professional medical consultation.",
-              },
               {"sender": "bot", "messageWidget": true}
             ],
-            "title": "Start a new conversation"
+            "title": "Welcome"
           };
 
     return Scaffold(
@@ -292,9 +293,10 @@ Ensure the response is actionable, easy to read, and tailored for a mobile user 
                     final message = currentConversation["messages"][index];
                     return message.containsKey("messageWidget")
                         ? ChatWidgetMessageBubble(
-                            sender: message["sender"],
+                            sender: "bot",
                             onTap: () {
-                              startNewConversation(); // Create a new conversation when tapped
+                              startNewConversation();
+                              // Create a new conversation when tapped
                             },
                           )
                         : ChatMessageBubble(

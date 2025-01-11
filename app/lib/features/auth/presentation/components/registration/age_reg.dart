@@ -45,13 +45,13 @@ class BirthDateReg extends StatelessWidget {
               ),
             ),
             Text(
-              "Select your age. ",
+              "Could you let me know your date of birth? 🎂. ",
               style: TextStyle(
                   fontSize: 15, color: Theme.of(context).colorScheme.primary),
             ),
             const SizedBox(height: 40),
             MyDateInput(
-              text: 'select your age',
+              text: 'select your birthdate',
               onDateSelected: onDateSelected,
             )
           ],

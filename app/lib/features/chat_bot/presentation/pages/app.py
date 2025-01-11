@@ -3,7 +3,6 @@ from pydantic import BaseModel
 import joblib
 
 model = joblib.load('medical_classifier.joblib')
-
 app = FastAPI()
 
 class InputData(BaseModel):
